@@ -1,13 +1,16 @@
 import React, { useState } from "react"
 import unilogo from '../../assets/uniisphearlogo.png'
-import { Container,Card,CardBody,Form ,Button} from "react-bootstrap"
+import { Container,Card,CardBody,Form ,Button, Spinner} from "react-bootstrap"
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import { ImSpinner9 } from "react-icons/im";
 import { HiBars3 } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
 import { Bounce, ToastContainer , toast} from "react-toastify"
 import { useMutation } from "@tanstack/react-query";
 import { authAxios } from "../../access/access";
-
+import DatePicker from "react-datepicker";
+import { Link } from "react-router-dom";
+// import "react-datepicker/dist/react-datepicker.css";
 type MyComponentProps = {
     // handlerfun: () => void;  // Define handler as a function that returns void
     
@@ -40,19 +43,42 @@ const Register:React.FC<MyComponentProps>=()=>{
   const [process,setprocess] = useState({first:false,second:false,third:false})
   const [fromdata,setformdata] =useState<{ sixteenabove: boolean ,fristname:string,lastName:string,location:string}>({fristname:'',lastName:'',location:'',sixteenabove:false})
   const [validatedtwo, setValidatedtwo] = useState(false);
-  const [fromdatatwo,setformdatatwo]= useState<{student:boolean,collage:string,degree:string,Specialization:string,StartYear:number,endYear:number,validated:boolean}>({collage:'',degree:'',Specialization:'',StartYear:0,endYear:0,validated:false,student:false})
+  const [fromdatatwo,setformdatatwo]= useState<{student:boolean,collage:string,degree:string,Specialization:string,StartYear:any,endYear:any,validated:boolean}>({collage:'',degree:'',Specialization:'',StartYear:new Date(),endYear:new Date(),validated:false,student:false})
   const [validatedthree, setValidatedthree] = useState(false);
   const [validated, setValidated] = useState(false);
-  
+  const [loader,setloader] =useState(false)
   const mutation = useMutation( {
     mutationFn: registerUser,
     onSuccess: (data:any) => {
-      console.log("User registered successfully:", data);
-      alert("Registration successful!");
+      setloader(false)
+      toast.success('registration successful!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+      setprocess({...process,third:true})
+      
+      setemailverify(true)
     },
     onError: (error:any) => {
-      console.error("Registration failed:", error);
-      alert(error.message)
+      setloader(false)
+      toast.warn('This email ID is already in use', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
     },
   });
   
@@ -68,12 +94,11 @@ const handleSubmitOne = (event:any) => {
       event.stopPropagation();
     }
     setValidated(true);
-    alert(emailnumber);
     (confirmPassword.trim() !=='' && emailnumber !=='' && emailnumber !==undefined)?(setprocess({...process,first:true}) ): ''
   };
 
   const handleSubmittwo = (e:any) => {
-    debugger;
+    // debugger;
     e.preventDefault();
       const form = e.currentTarget;
       console.log(form)
@@ -82,7 +107,7 @@ const handleSubmitOne = (event:any) => {
         e.stopPropagation();
       }
           try{     
-            (fromdata.fristname !=='' && fromdata.lastName !=='' && fromdata.location !=='')?(setprocess({...process,second:true})) : alert('@')
+            (fromdata.fristname !=='' && fromdata.lastName !=='' && fromdata.location !=='')?(setprocess({...process,second:true})) : '';
             setValidatedtwo(true);
           }catch(err){
             console.log(err)
@@ -91,32 +116,30 @@ const handleSubmitOne = (event:any) => {
     };
     const handleSubmitthird = (event:any) => {
       event.preventDefault();
+      setloader(true)
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
         }
         
-        (fromdatatwo.collage !==''&& fromdatatwo.degree !=='' && fromdatatwo.Specialization !=='' && fromdatatwo.StartYear !==0 && fromdatatwo.endYear !==0)?(setprocess({...process,third:true}),setemailverify(true)) : ''
+        (fromdatatwo.collage !==''&& fromdatatwo.degree !=='' && fromdatatwo.Specialization !=='' && fromdatatwo.StartYear !==0 && fromdatatwo.endYear !==0)?(setformdatatwo({...fromdatatwo,validated:true})) : '';
         // (confirmPassword !=='' && emailnumber !=='')?(setprocess({...process,third:true})) : ''
         const userData={
           "email" : emailnumber,
-        "username":"",
+        "username":fromdata.fristname + " "+ fromdata.lastName,
         "firstName":fromdata.fristname,
         "lastName":fromdata.lastName,
         "password": confirmPassword,
-        "profilePictureUrl":"",
-        "PhoneNumber":"",
         "location":fromdata.location,
         "bio":fromdatatwo.Specialization,
         "college":fromdatatwo.collage,
         "degree":fromdatatwo.degree,
-        "startYear":fromdatatwo.StartYear,
-        "endYear":fromdatatwo.endYear
+        "startYear": new Date(fromdatatwo.StartYear).getUTCFullYear(),
+        "endYear":new Date(fromdatatwo.endYear).getUTCFullYear()
         }
        
         mutation.mutate(userData);
-        setformdatatwo({...fromdatatwo,validated:true})
       };
   const handleConfirmPasswordChange = (e:any) => {
     setConfirmPassword(e.target.value);
@@ -147,9 +170,9 @@ const handleSubmitOne = (event:any) => {
       <Form className="text-start" noValidate validated={validated} onSubmit={(e)=>handleSubmitOne(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="ps-2 mb-0 headingthird">Email or Phone Number</Form.Label>
-        <Form.Control required type="text" value={ emailnumber} onChange={(e:any)=>setemailnumber(e.target.value)} placeholder="" />
+        <Form.Control required type="email" value={ emailnumber} onChange={(e:any)=>setemailnumber(e.target.value)} placeholder="" />
         <Form.Control.Feedback type="invalid" className=" mb-1" >
-           Please Enter Email or Phone Number
+           Please Enter Email
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formPassword">
@@ -227,11 +250,7 @@ const handleSubmitOne = (event:any) => {
       />
       </div>
       <div className="w-100 d-flex justify-content-center mt-3 mb-3 ">
-      <Button variant="primary" type="submit" 
-      // onClick={()=>handlesubmit('second')} \
-      className="headingthird" disabled={!match}>
-        continue
-      </Button>
+      <Button variant="primary" type="submit" className="headingthird" disabled={!match}>continue</Button>
       </div></Form>
         </div>}
         {(process.first && process.second && !process.third) && <div><Form className="text-start" noValidate validated={fromdatatwo.validated} onSubmit={(e)=>handleSubmitthird(e)}>
@@ -257,16 +276,30 @@ const handleSubmitOne = (event:any) => {
         </Form.Control.Feedback>
       </Form.Group>
       <div className="d-flex flex-row">
-      <Form.Group className="mb-3 pe-3" controlId="formBasicSpecialization">
+      <Form.Group className="mb-3 pe-3 col" controlId="formBasicSpecialization">
         <Form.Label className="ps-2 mb-0 headingthird">Start Year</Form.Label>
-        <Form.Control required type="number" placeholder=""  value={fromdatatwo.StartYear} onChange={(e)=>setformdatatwo({...fromdatatwo,StartYear:Number(e.target.value)})}/>
+        <DatePicker
+        selected={fromdatatwo.StartYear}
+        onChange={(date) => setformdatatwo({...fromdatatwo,StartYear:(date)})}
+        showYearPicker
+        dateFormat="yyyy"
+        className="form-control"
+      />
+        {/* <Form.Control required type="number" min="1900" max="2099" step="1" placeholder=""  onChange={(e)=>setformdatatwo({...fromdatatwo,StartYear:Number(e.target.value)})}/> */}
         <Form.Control.Feedback type="invalid" className=" mb-1 " >
           Enter Start Year
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3 ps-3" controlId="formBasicSpecialization">
+      <Form.Group className="mb-3 ps-3 col" controlId="formBasicSpecialization">
         <Form.Label className="ps-2 mb-0 headingthird">end Year</Form.Label>
-        <Form.Control required type="number" placeholder="" value={fromdatatwo.endYear} onChange={(e)=>setformdatatwo({...fromdatatwo,endYear:Number(e.target.value)})}/>
+        <DatePicker
+        selected={fromdatatwo.endYear}
+        onChange={(date) => setformdatatwo({...fromdatatwo,endYear:(date)})}
+        showYearPicker
+        dateFormat="yyyy"
+        className="form-control"
+      />
+        {/* <Form.Control required type="number" minLength={1900} maxLength={2099} step="1"  placeholder="" onChange={(e)=>setformdatatwo({...fromdatatwo,endYear:Number(e.target.value)})}/> */}
         <Form.Control.Feedback type="invalid" className=" mb-1 " >
           Enter end Year
         </Form.Control.Feedback>
@@ -283,10 +316,9 @@ const handleSubmitOne = (event:any) => {
       />
       </div>
       <div className="w-100 d-flex justify-content-center mt-3 mb-3">
-      <Button variant="primary" type="submit"
-      //  onClick={()=>handlesubmit('third')}
-        className="headingthird" disabled={!match}>
-        continue
+      <Button variant="primary" type="submit"className="headingthird" disabled={!match}>
+         {loader ? <Spinner animation="border" role="status">
+      <span className="visually-hidden fs-6">Loading...</span></Spinner>: <span>continue</span>}
       </Button>
       </div></Form>
           </div>} 
@@ -301,7 +333,7 @@ const handleSubmitOne = (event:any) => {
   <button className="bg-white border headingthird" type="submit"><FcGoogle /> Google</button>
   </div>
 
-  <div className="mt-4 headingthird"><p>Already on Uniisphere   <span className="text-primary">Sign in</span></p></div>
+  <div className="mt-4 headingthird"><p>Already on Uniisphere  <Link to="/login"> <span className="text-primary">Sign in</span></Link></p></div>
                </Card> : 
                <Card className='border-0 rounded-5 mt-3 text-start' style={{background: 'linear-gradient(180deg, rgba(68, 169, 177, 0.1) 0%, rgba(225, 200, 107, 0.100000000000000000) 100%)'
 }}> <div><h3>Confirm your email</h3></div>
@@ -315,7 +347,7 @@ const handleSubmitOne = (event:any) => {
       <div className="col text-end">Resend Code</div>
     </div>
     <div className='row'>
-      <h5>Your Privacy is important</h5>
+      <h6>Your Privacy is important</h6>
       <div><p className="fw-light">
       We may send you
       member updates, recruiter message, job suggestions, invitations, reminder and promotional messages from us and our partners. You can change your preference anytime.</p></div>

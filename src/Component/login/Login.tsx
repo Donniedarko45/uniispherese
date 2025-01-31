@@ -3,10 +3,64 @@ import unilogo from '../../assets/uniisphearlogo.png'
 import { Container,Card,CardBody,Form ,Button} from "react-bootstrap"
 import { HiBars3 } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
-import { ToastContainer } from 'react-toastify';
+import {  Bounce, ToastContainer , toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { authAxios } from '../../access/access';
 function Login(){
     const [validated, setValidated] = useState(false);
+    const [fromdata,setfromdata] =useState({"email":"","password":""})
+    const registerUser =  async (userData: any)  => {
+        const response = await authAxios.post("/auth/login", userData);
+        return response.data;
+      };
+    const mutation = useMutation( {
+        mutationFn: registerUser,
+        onSuccess: (data:any) => {
+          console.log("login successfully:", data);
+          toast.success('login successful!', {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: false,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Bounce,
+                  });
+        },
+        onError: (error:any) => {
+          console.error("Registration failed:", error);
+          toast.warn('Please fill the correct details', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+        },
+      });
+      const handleSubmit = (event:any) => {
+        event.preventDefault();
+          const form = event.currentTarget;
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          const userData={
+            email:fromdata.email,
+            password:fromdata.password
+          }
+          setValidated(true)
+          mutation.mutate(userData);
+        }
+      
 return (
     <React.Fragment>
         <nav className='d-flex justify-content-between  container-fluid align-items-center place-content-center' style={{placeContent:'center'}}>
@@ -27,25 +81,25 @@ return (
         
         <h3 className=" fw-normal fs-5 headingthird text-dark">“Connect”  “Collaborate”  “Success”</h3>
         <Card className='border-0 rounded-5 mt-3 ' style={{background: 'linear-gradient(180deg, rgba(68, 169, 177, 0.1) 0%, rgba(225, 200, 107, 0.100000000000000000) 100%)'}}>
-            <Form className="text-start" noValidate validated={validated}>
+            <Form className="text-start" noValidate validated={validated} onSubmit={(e)=>handleSubmit(e)}>
             <Form.Group controlId="formBasicEmail ">
             <Form.Label className='headingthird mb-1 ps-1'>Email or Phone Number</Form.Label>
-            <Form.Control type='text' required></Form.Control>
+            <Form.Control type='text' value={fromdata.email} onChange={(e)=>setfromdata({...fromdata,email: e.target.value})} required></Form.Control>
             <Form.Control.Feedback className='text-danger'><small>Please enter your correct email / phone number</small></Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-            <Form.Label className='headingthird mb-1 mt-4 ps-1'>Password</Form.Label>
-            <Form.Control type='text' required></Form.Control>
+            <Form.Label className='headingthird mb-1 mt-4 ps-1' >Password</Form.Label>
+            <Form.Control type='text' required value={fromdata.password} onChange={(e)=>setfromdata({...fromdata,password: e.target.value})}></Form.Control>
             <Form.Control.Feedback type="invalid" className='text-danger'><small>Please enter your correct Password</small></Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3 mt-3 d-flex justify-content-end headingthird " controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Remember me" className='fw-light'/>
+              <Form.Check type="checkbox" label="Remember me" className='fw-light'/>
             </Form.Group>
             <div >
                 <p className='text-center headingthird'><small className='fw-ligth text-center'>By clicking Agree & join or continue, you agree to the Uniisphere User Agreement, Privacy Policy and Cookie Policy</small></p>
             </div>
             <div className='w-100 d-flex justify-content-center' >
-                <Button variant='primary' className='rounded-5 m-auto'>Continue</Button>
+                <Button variant='primary' type='submit' className='rounded-5 m-auto'>Continue</Button>
             </div>
             </Form>
             <div className="line-container">
