@@ -1,0 +1,203 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+.unilogo {
+  height: 109px;
+}
+@media (max-width:768px) {
+  .unilogo{
+    height: 89px;
+   }
+   .headingfontsize{
+    font-size:var(--display-font-size-3)
+  } 
+  }
+   
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.Firstflash::before{content: url('/src/assets/backtwo.svg');position: absolute;left: 0px;z-index: 1;margin-top:15px;}
+.Firstflash::after{content: url('/src/assets/backThird.svg');position: absolute;right: 0px;z-index: 1;top: 151px;}
+.firstemptycontainer::before{content: url('/src/assets/backFour.svg');position: absolute;left: 0px;z-index: 1;top: 394px;;}
+.firstemptycontainer::after{content: url('/src/assets/backfive.svg');position: absolute;right: 0px;z-index: 1;margin-top: -74px;}
+.secondemptycontainer::before{content: url('/src/assets/ennllpone.svg');position: absolute;left: 0px;z-index: 1;;}
+.secondemptycontainer::after{content: url('/src/assets/ennllp.svg');position: absolute;right: 0px;z-index: 1;margin-top: -194px;}
+#formBasicCheckbox {
+margin-right:8px
+}
+
+.color-first{
+  color:var(--colorOne)
+  }
+  .color-Second{
+    color:var(--colorSecond)
+  }
+  .color-third{
+    color:var(--colorThird)
+  }
+  .color-four{
+    color:var(--colorFour)
+  }
+  .color-five{
+    color:var(--colorFive)
+  }
+    .color-six{
+    color:var(--colorSix)
+  } 
+  .headingfontsize{
+    font-size:var(--display-font-size-1);
+    white-space: nowrap;
+  }
+  .line-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .left-line, .right-line {
+    border-top: 3px solid rgb(0, 0, 0);
+    flex-grow: 1;
+    /* margin: 0 10px; */
+  }
+  
+  .text {
+    text-align: center;
+  }
+  
+@media (min-width:1200px)  {
+  .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+    transform: scale(.4);
+        left: -33px;
+        
+  }
+  .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+    transform: translateX(35%) scale(.4)
+  }
+}
+@media  (max-width:1200px){
+  .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+    transform: scale(.4);
+        left: -33px;        
+  } 
+  .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+    transform: translateX(35%) scale(.4)
+  }
+}
+@media (max-width:659px){
+.Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+  transform: scale(.5);
+      
+}
+.headingfontsize{
+  font-size:var(--display-font-size-5);
+  white-space: nowrap;
+} 
+.Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+transform: translateX(35%) scale(.5);
+}
+}
+@media (max-width:576px){
+  .headingfonttwo{
+    font-size:var(--display-font-size-5)
+  }
+  .headingfontsize{
+    font-size:var(--display-font-size-7);
+    white-space: nowrap;
+  }
+  
+  .headingthird{
+    font-size:var(--display-font-size-11) !important;
+  }
+}
+@media (max-width:509px){
+  .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+  transform: translateX(31%) scale(.4);
+  right:0px;
+  }
+  .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+left: 0px;
+            transform: translateX(-31%) scale(.4);}}
+        
+            @media (max-width:390px) {
+
+            }
+            @media (max-width:390px) {
+              .opt{
+                 height:30px !important;
+                 width:30px !important;
+              }
+              .unilogo{
+                height: 59px;
+               }
+               .headingthird {
+                font-size: var(--display-font-size-10) !important;
+              }
+              .headingfonttwo{
+                font-size:var(--display-font-size-6)
+              }
+              .headingfontsize {
+                font-size: var(--display-font-size-6);
+                white-space: nowrap;
+            }
+            .headingthird {
+              font-size: var(--display-font-size-10) !important;
+            }
+             }
+             .hori::before{
+              content: "";
+    flex: 1;
+    border-bottom: 4px solid #ffffff;
+    margin: auto;
+    position: absolute;
+    left: 58%;
+    width: 39%;
+    margin: 10px;
+             }
+             .hori::after{
+              content: "";
+    border-bottom: 4px solid #ffffff;
+    width: 38%;
+    position: absolute;
+    margin-left: -60%;
+    margin-top: 10px;
+             }
+             body{
+              overflow-x: hidden;
+             }
+            
