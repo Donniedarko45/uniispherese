@@ -113,20 +113,6 @@ const handleSubmitOne = (event:any) => {
         "degree":fromdatatwo.degree,
         "startYear":fromdatatwo.StartYear,
         "endYear":fromdatatwo.endYear
-          //     "email" : "kishanmihani12@gmail.com",
-          // "username":"kisha kishan",
-          // "firstName":"kisha",
-          // "lastName":"kisha",
-          // "password": "ss",
-          // "profilePictureUrl":"",
-          // "PhoneNumber":"",
-          // "location":"khandwa",
-          // "bio":"bpo",
-          // "college":"nirma",
-          // "degree":"B.tech",
-          // "startYear":2020,
-          // "endYear":2022
-  
         }
        
         mutation.mutate(userData);
