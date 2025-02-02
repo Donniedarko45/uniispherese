@@ -84,12 +84,12 @@ return (
             <Form className="text-start" noValidate validated={validated} onSubmit={(e)=>handleSubmit(e)}>
             <Form.Group controlId="formBasicEmail ">
             <Form.Label className='headingthird mb-1 ps-1'>Email or Phone Number</Form.Label>
-            <Form.Control type='text' value={fromdata.email} onChange={(e)=>setfromdata({...fromdata,email: e.target.value})} required></Form.Control>
+            <Form.Control type='email' value={fromdata.email} onChange={(e)=>setfromdata({...fromdata,email: e.target.value})} required></Form.Control>
             <Form.Control.Feedback className='text-danger'><small>Please enter your correct email / phone number</small></Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
             <Form.Label className='headingthird mb-1 mt-4 ps-1' >Password</Form.Label>
-            <Form.Control type='text' required value={fromdata.password} onChange={(e)=>setfromdata({...fromdata,password: e.target.value})}></Form.Control>
+            <Form.Control type='password' required value={fromdata.password} onChange={(e)=>setfromdata({...fromdata,password: e.target.value})}></Form.Control>
             <Form.Control.Feedback type="invalid" className='text-danger'><small>Please enter your correct Password</small></Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3 mt-3 d-flex justify-content-end headingthird " controlId="formBasicCheckbox">
@@ -108,7 +108,7 @@ return (
   <span className="right-line"></span>
 </div>
              <div>
-                <button className="bg-white border headingthird" type="submit"><FcGoogle /> Google</button>
+                <button className="bg-white border headingthird text-dark" type="submit"><FcGoogle /> Google</button>
              </div>
              <div className='mt-5 headingthird'>
                 <p>Already on Uniisphere?<Link to='/Register'>Sign Up</Link></p>

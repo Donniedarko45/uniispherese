@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,7 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './Component/login/Login'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <React.Fragment>

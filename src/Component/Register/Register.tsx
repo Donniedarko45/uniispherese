@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import unilogo from '../../assets/uniisphearlogo.png'
 import { Container,Card,CardBody,Form ,Button, Spinner} from "react-bootstrap"
-import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import { ImSpinner9 } from "react-icons/im";
+// import { FaInstagram, FaLinkedin } from "react-icons/fa";
+// import { ImSpinner9 } from "react-icons/im";
 import { HiBars3 } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
 import { Bounce, ToastContainer , toast} from "react-toastify"
@@ -15,21 +15,21 @@ type MyComponentProps = {
     // handlerfun: () => void;  // Define handler as a function that returns void
     
   };
-  interface RegisterData {
-    email: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    passwordHash: string;
-    profilePictureUrl: string;
-    PhoneNumber: string;
-    location: string;
-    bio: string;
-    college: string;
-    degree: string;
-    startYear: number;
-    endYear:number;
-  }
+  // interface RegisterData {
+  //   email: string;
+  //   username: string;
+  //   firstName: string;
+  //   lastName: string;
+  //   passwordHash: string;
+  //   profilePictureUrl: string;
+  //   PhoneNumber: string;
+  //   location: string;
+  //   bio: string;
+  //   college: string;
+  //   degree: string;
+  //   startYear: number;
+  //   endYear:number;
+  // }
   const registerUser =  async (userData: any)  => {
     const response = await authAxios.post("/auth/register", userData);
     return response.data;
@@ -39,18 +39,19 @@ const Register:React.FC<MyComponentProps>=()=>{
   const [confirmPassword, setConfirmPassword] = useState('');
   const [match, setMatch] = useState(true);
   const [emailverify,setemailverify]=useState(false)
-  const [emailnumber, setemailnumber] = useState();
+  const [emailnumber, setemailnumber] = useState<string>('');
   const [process,setprocess] = useState({first:false,second:false,third:false})
   const [fromdata,setformdata] =useState<{ sixteenabove: boolean ,fristname:string,lastName:string,location:string}>({fristname:'',lastName:'',location:'',sixteenabove:false})
   const [validatedtwo, setValidatedtwo] = useState(false);
   const [fromdatatwo,setformdatatwo]= useState<{student:boolean,collage:string,degree:string,Specialization:string,StartYear:any,endYear:any,validated:boolean}>({collage:'',degree:'',Specialization:'',StartYear:new Date(),endYear:new Date(),validated:false,student:false})
-  const [validatedthree, setValidatedthree] = useState(false);
+  // const [validatedthree, setValidatedthree] = useState(false);
   const [validated, setValidated] = useState(false);
   const [loader,setloader] =useState(false)
   const mutation = useMutation( {
     mutationFn: registerUser,
     onSuccess: (data:any) => {
       setloader(false)
+      console.log(data);
       toast.success('registration successful!', {
         position: "top-center",
         autoClose: 5000,
@@ -68,6 +69,7 @@ const Register:React.FC<MyComponentProps>=()=>{
     },
     onError: (error:any) => {
       setloader(false)
+      console.log(error);
       toast.warn('This email ID is already in use', {
         position: "top-center",
         autoClose: 5000,
@@ -145,6 +147,15 @@ const handleSubmitOne = (event:any) => {
     setConfirmPassword(e.target.value);
     setMatch(password === e.target.value);
   };
+  const maskEmail =()=> {
+    let [local, domain] = emailnumber.split("@");
+    if (local.length <= 4) {
+        return local + "@" + domain; // No masking if the local part is too short
+    }
+    let maskedLocal = local.slice(0, 2) + "*".repeat(local.length - 4) + local.slice(-4);
+    return maskedLocal + "@" + domain;
+}
+
  return (
     <React.Fragment>
         <nav className='d-flex justify-content-between  container-fluid align-items-center place-content-center' style={{placeContent:'center'}}>
@@ -167,10 +178,10 @@ const handleSubmitOne = (event:any) => {
             {!emailverify  ?  <Card className='border-0 rounded-5 mt-3 ' style={{background: 'linear-gradient(180deg, rgba(68, 169, 177, 0.1) 0%, rgba(225, 200, 107, 0.100000000000000000) 100%)'}}>
    
     {!process.first && <div>
-      <Form className="text-start" noValidate validated={validated} onSubmit={(e)=>handleSubmitOne(e)}>
+      <Form className="text-start headingthird" noValidate validated={validated} onSubmit={(e)=>handleSubmitOne(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="ps-2 mb-0 headingthird">Email or Phone Number</Form.Label>
-        <Form.Control required type="email" value={ emailnumber} onChange={(e:any)=>setemailnumber(e.target.value)} placeholder="" />
+        <Form.Control required type="email"  value={ emailnumber} onChange={(e:any)=>setemailnumber(e.target.value)} placeholder="" />
         <Form.Control.Feedback type="invalid" className=" mb-1" >
            Please Enter Email
         </Form.Control.Feedback>
@@ -217,7 +228,7 @@ const handleSubmitOne = (event:any) => {
       </Form>
       </div>}
       
-      {(process.first && !process.second) && <div><Form className="text-start" noValidate validated={validatedtwo} onSubmit={handleSubmittwo}>
+      {(process.first && !process.second) && <div><Form className="text-start headingthird" noValidate validated={validatedtwo} onSubmit={handleSubmittwo}>
       <Form.Group className="mb-3" controlId="formBasicFirstName">
         <Form.Label className="ps-2 mb-0 headingthird">First Name</Form.Label>
         <Form.Control required type="text" value={fromdata.fristname} onChange={(e: React.ChangeEvent<any>)=>setformdata({...fromdata,fristname:e.target.value})} placeholder="" />
@@ -253,7 +264,7 @@ const handleSubmitOne = (event:any) => {
       <Button variant="primary" type="submit" className="headingthird" disabled={!match}>continue</Button>
       </div></Form>
         </div>}
-        {(process.first && process.second && !process.third) && <div><Form className="text-start" noValidate validated={fromdatatwo.validated} onSubmit={(e)=>handleSubmitthird(e)}>
+        {(process.first && process.second && !process.third) && <div><Form className="text-start headingthird" noValidate validated={fromdatatwo.validated} onSubmit={(e)=>handleSubmitthird(e)}>
           <Form.Group className="mb-3" controlId="formBasicCollege">
         <Form.Label className="ps-2 mb-0 headingthird">School or College/University</Form.Label>
         <Form.Control required type="text" value={fromdatatwo.collage} onChange={(e)=>setformdatatwo({...fromdatatwo,collage:e.target.value})} placeholder="" />
@@ -312,7 +323,7 @@ const handleSubmitOne = (event:any) => {
         id="custom-switch"
         className="fs-3 ms-3"
         
-        checked={fromdatatwo.student} onChange={(e)=>setformdatatwo({...fromdatatwo,student:!fromdatatwo.student})}
+        checked={fromdatatwo.student} onChange={()=>setformdatatwo({...fromdatatwo,student:!fromdatatwo.student})}
       />
       </div>
       <div className="w-100 d-flex justify-content-center mt-3 mb-3">
@@ -330,7 +341,7 @@ const handleSubmitOne = (event:any) => {
 </div>
   <p className="headingthird fw-light">By clicking Agree & join or continue, you agree to the Uniisphere User Agreement, Privacy Policy and Cookie Policy</p>
   <div className="w-100 d-flex justify-content-center">
-  <button className="bg-white border headingthird" type="submit"><FcGoogle /> Google</button>
+  <button className="bg-white border headingthird text-dark" type="submit"><FcGoogle /> Google</button>
   </div>
 
   <div className="mt-4 headingthird"><p>Already on Uniisphere  <Link to="/login"> <span className="text-primary">Sign in</span></Link></p></div>
@@ -338,7 +349,7 @@ const handleSubmitOne = (event:any) => {
                <Card className='border-0 rounded-5 mt-3 text-start' style={{background: 'linear-gradient(180deg, rgba(68, 169, 177, 0.1) 0%, rgba(225, 200, 107, 0.100000000000000000) 100%)'
 }}> <div><h3>Confirm your email</h3></div>
     <div><p className="fw-light">We have send a 6 digit verification code to 
-    hr*********4322@gmail.com</p></div>
+    &nbsp;&nbsp;{maskEmail()}</p></div>
     <div className="d-flex row justify-content-around mt-4 mb-2">
       <input type="text" className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/>
     </div>
