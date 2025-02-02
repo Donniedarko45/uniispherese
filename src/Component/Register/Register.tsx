@@ -220,7 +220,6 @@ const handleSubmitOne = (event:any) => {
       </Form.Group>
       <div className="w-100 d-flex justify-content-center mt-3 mb-3">
       <Button variant="primary" type="submit"
-      //  onClick={()=>handlesubmit('first')}
         className="headingthird" disabled={!match}>
         continue
       </Button>
