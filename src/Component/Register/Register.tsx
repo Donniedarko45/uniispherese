@@ -7,7 +7,8 @@ import { Bounce, ToastContainer , toast} from "react-toastify"
 import { useMutation } from "@tanstack/react-query";
 import { authAxios } from "../../access/access";
 import DatePicker from "react-datepicker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
+// import { Link ,useNavigate} from 'react-router-dom';
 // import { GiConsoleController } from "react-icons/gi";
 import {GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
@@ -29,6 +30,7 @@ const Register=()=>{
   const [loader,setloader] =useState(false)
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const navigate = useNavigate();
   const mutation = useMutation( {
     mutationFn: registerUser,
     onSuccess: () => {
@@ -96,7 +98,18 @@ async function verifyotp(otpValue: string){
     "password":confirmPassword,
     "otp":otpValue
   }
-    await  authAxios.post("/auth/verifyOtp", userData).catch((e) => (toasteralert('warn','otp is expire'),console.log(e)))
+    await  authAxios.post("/auth/verifyOtp", userData)
+    .then((response) => {
+      // Handle the success response here
+      toasteralert('success', 'OTP verified successfully');
+      console.log(response);
+      navigate("/Home");
+    })
+    .catch((e) => {
+      // Handle the error here
+      toasteralert('warn', 'OTP is expired');
+      console.log(e);
+    });
 }
 const otpchange = (index:number,value:any)=>{
   if(!/^\d?$/.test(value)) return;
@@ -321,7 +334,7 @@ await  authAxios.post("/auth/resendOtp", userData)
     &nbsp;&nbsp;{maskEmail()}</p></div>
     <div className="d-flex row justify-content-around mt-4 mb-2">
       {/* <input type="text" className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/> */}
-      {otp.map((digit, index) => (<input key={index} type="text" value={digit} onKeyDown={(e)=>handleKeyDown(index,e)}  onChange={(e) => otpchange(index,e.target.value)} ref={(el)=>inputRefs.current[index] == el} onPaste={handlePaste} className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} />))}
+      {otp.map((digit, index) => (<input key={index} type="text" value={digit} onKeyDown={(e)=>handleKeyDown(index,e)}  onChange={(e) => otpchange(index,e.target.value)} ref={(el)=>inputRefs.current[index] == el} onPaste={handlePaste} className="opt p-0 text-center text-dark rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} />))}
     </div>
      <div className="row text-primary mb-4 headingthird">
       {/* <div className="col text-start">Change email</div> */}
