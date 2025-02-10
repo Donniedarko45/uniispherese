@@ -1,0 +1,59 @@
+@media (min-width:1271px) {
+    .chaticon, .newfooter{
+        display: none;
+    } 
+}
+
+@media (max-width:1270px) {
+    .firstcol{
+        display: none !important
+    }
+    .thirdcol,.footerheader,.unihomelogo{
+        display: none !important
+    }
+    .secondcol,.second-header{
+        width: 100%;
+        /* height: calc(100vh - 120px);s */
+    }
+    .secondcol{
+
+        margin-bottom: 55px;
+        height: calc(100vh - 120px);
+    }
+    .footerheader{
+        display: none;
+    }
+    .chaticon{
+        display: block;
+    }
+    .newfooter{
+        bottom: 4px;
+    color: black;
+    width: 100%;
+    padding: 0;
+    clear: both;
+    position: absolute;
+     background-color: white;
+    }
+    .feedphoto{
+     width:calc(100% - 14px) !important;
+
+
+    }
+}
+
+@media (orientation: landscape) and (max-width:1270px) {
+    .newfooter{
+        bottom: 0px;
+    color: black;
+    width: 100%;
+    padding: 0;
+    clear: both;
+    position: fixed;
+     background-color: white;
+    }
+    .secondcol{
+        margin-bottom: 67px;
+    }
+  }
+  

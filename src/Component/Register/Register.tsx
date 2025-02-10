@@ -1,40 +1,21 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import unilogo from '../../assets/uniisphearlogo.png'
 import { Container,Card,CardBody,Form ,Button, Spinner} from "react-bootstrap"
-// import { FaInstagram, FaLinkedin } from "react-icons/fa";
-// import { ImSpinner9 } from "react-icons/im";
 import { HiBars3 } from "react-icons/hi2";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { Bounce, ToastContainer , toast} from "react-toastify"
 import { useMutation } from "@tanstack/react-query";
 import { authAxios } from "../../access/access";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
-// import "react-datepicker/dist/react-datepicker.css";
-type MyComponentProps = {
-    // handlerfun: () => void;  // Define handler as a function that returns void
-    
-  };
-  // interface RegisterData {
-  //   email: string;
-  //   username: string;
-  //   firstName: string;
-  //   lastName: string;
-  //   passwordHash: string;
-  //   profilePictureUrl: string;
-  //   PhoneNumber: string;
-  //   location: string;
-  //   bio: string;
-  //   college: string;
-  //   degree: string;
-  //   startYear: number;
-  //   endYear:number;
-  // }
+// import { GiConsoleController } from "react-icons/gi";
+import {GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
   const registerUser =  async (userData: any)  => {
     const response = await authAxios.post("/auth/register", userData);
     return response.data;
   };
-const Register:React.FC<MyComponentProps>=()=>{
+const Register=()=>{
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [match, setMatch] = useState(true);
@@ -44,78 +25,42 @@ const Register:React.FC<MyComponentProps>=()=>{
   const [fromdata,setformdata] =useState<{ sixteenabove: boolean ,fristname:string,lastName:string,location:string}>({fristname:'',lastName:'',location:'',sixteenabove:false})
   const [validatedtwo, setValidatedtwo] = useState(false);
   const [fromdatatwo,setformdatatwo]= useState<{student:boolean,collage:string,degree:string,Specialization:string,StartYear:any,endYear:any,validated:boolean}>({collage:'',degree:'',Specialization:'',StartYear:new Date(),endYear:new Date(),validated:false,student:false})
-  // const [validatedthree, setValidatedthree] = useState(false);
-  const [validated, setValidated] = useState(false);
+ const [validated, setValidated] = useState(false);
   const [loader,setloader] =useState(false)
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const mutation = useMutation( {
     mutationFn: registerUser,
-    onSuccess: (data:any) => {
+    onSuccess: () => {
       setloader(false)
-      console.log(data);
-      toast.success('registration successful!', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        });
+      toasteralert('success','registration successful!')
       setprocess({...process,third:true})
-      
       setemailverify(true)
     },
-    onError: (error:any) => {
+    onError: () => {
       setloader(false)
-      console.log(error);
-      toast.warn('This email ID is already in use', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        });
-    },
+      toasteralert('warn','This email ID is already in use')
+     },
   });
   
-  
-  const handlePasswordChange = (e:any) => {
-    setPassword(e.target.value);
-  };
-const handleSubmitOne = (event:any) => {
-  event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false ) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  function toasteralert(status: string, word: string){
+      if(status  ===  "success"){toast.success(word, {position: "top-center",autoClose: 5000,hideProgressBar: false,closeOnClick: false, pauseOnHover: true,draggable: true,progress: undefined,theme: "light",transition: Bounce,});}
+      if(status === "warn"){toast.warn(word, {position: "top-center",autoClose: 5000,hideProgressBar: false,closeOnClick: false,pauseOnHover: true,draggable: true,progress: undefined,theme: "light",transition: Bounce,});}
+  }
+  const handlePasswordChange = (e:any) => {setPassword(e.target.value);};
+const handleSubmitOne = (event:any) => {event.preventDefault();const form = event.currentTarget;
+    if (form.checkValidity() === false ) { event.preventDefault();event.stopPropagation();}
     setValidated(true);
     (confirmPassword.trim() !=='' && emailnumber !=='' && emailnumber !==undefined)?(setprocess({...process,first:true}) ): ''
   };
 
-  const handleSubmittwo = (e:any) => {
-    // debugger;
-    e.preventDefault();
-      const form = e.currentTarget;
-      console.log(form)
-      if (form.checkValidity() === false) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-          try{     
-            (fromdata.fristname !=='' && fromdata.lastName !=='' && fromdata.location !=='')?(setprocess({...process,second:true})) : '';
-            setValidatedtwo(true);
-          }catch(err){
-            console.log(err)
-          }
-
-    };
+  const handleSubmittwo = (e:any) => {e.preventDefault(); const form = e.currentTarget;
+      
+      if (form.checkValidity() === false) {e.preventDefault();e.stopPropagation();}
+          try{(fromdata.fristname !=='' && fromdata.lastName !=='' && fromdata.location !=='')?(setprocess({...process,second:true})) : '';
+          setValidatedtwo(true);
+          }catch(err){console.log(err)}
+};
     const handleSubmitthird = (event:any) => {
       event.preventDefault();
       setloader(true)
@@ -126,19 +71,7 @@ const handleSubmitOne = (event:any) => {
         }
         
         (fromdatatwo.collage !==''&& fromdatatwo.degree !=='' && fromdatatwo.Specialization !=='' && fromdatatwo.StartYear !==0 && fromdatatwo.endYear !==0)?(setformdatatwo({...fromdatatwo,validated:true})) : '';
-        // (confirmPassword !=='' && emailnumber !=='')?(setprocess({...process,third:true})) : ''
-        const userData={
-          "email" : emailnumber,
-        "username":fromdata.fristname + " "+ fromdata.lastName,
-        "firstName":fromdata.fristname,
-        "lastName":fromdata.lastName,
-        "password": confirmPassword,
-        "location":fromdata.location,
-        "bio":fromdatatwo.Specialization,
-        "college":fromdatatwo.collage,
-        "degree":fromdatatwo.degree,
-        "startYear": new Date(fromdatatwo.StartYear).getUTCFullYear(),
-        "endYear":new Date(fromdatatwo.endYear).getUTCFullYear()
+        const userData={"email" : emailnumber,"username":fromdata.fristname + " "+ fromdata.lastName,"firstName":fromdata.fristname,"lastName":fromdata.lastName,"password": confirmPassword,"location":fromdata.location,"bio":fromdatatwo.Specialization,"college":fromdatatwo.collage,"degree":fromdatatwo.degree,"startYear": new Date(fromdatatwo.StartYear).getUTCFullYear(),"endYear":new Date(fromdatatwo.endYear).getUTCFullYear()
         }
        
         mutation.mutate(userData);
@@ -156,8 +89,44 @@ const handleSubmitOne = (event:any) => {
     return maskedLocal + "@" + domain;
 }
 
+async function verifyotp(otpValue: string){
+  const userData={
+    "email":emailnumber,
+    "username":fromdata.fristname + " "+ fromdata.lastName,
+    "password":confirmPassword,
+    "otp":otpValue
+  }
+    await  authAxios.post("/auth/verifyOtp", userData).catch((e) => (toasteralert('warn','otp is expire'),console.log(e)))
+}
+const otpchange = (index:number,value:any)=>{
+  if(!/^\d?$/.test(value)) return;
+ const newOtp=[...otp];newOtp[index] = value;setOtp(newOtp);
+ if(value && index < 5 && inputRefs.current[index + 1]){inputRefs.current[index + 1]?.focus()}
+}
+const handleKeyDown = (index:number,e:React.KeyboardEvent<HTMLInputElement>)=>{if (e.key === "Backspace" && !otp[index] && index > 0) { inputRefs.current[index - 1]?.focus(); }}
+
+const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>)=>{
+  e.preventDefault();const pasteData = e.clipboardData.getData("text").slice(0, 6);
+  if (/^\d{6}$/.test(pasteData)) {setOtp([...pasteData]);inputRefs.current[5]?.focus(); }
+}
+useEffect(()=>{
+  const otpValue:string= otp.join("");
+  if(otpValue.length === 6){
+    verifyotp(otpValue)
+  }
+},[otp])
+async function Resendotp(){
+  let userData={"email":emailnumber,"username":fromdata.fristname + " "+ fromdata.lastName}
+await  authAxios.post("/auth/resendOtp", userData)
+.then(res => (console.log(res),toasteralert('warn',`${res.data.message} \n otp valid ${res.data.expiresIn}`)))
+.catch(e => toasteralert('warn',e.data.message))
+}
+// const login = useGoogleLogin({
+//   onSuccess: tokenResponse => console.log(tokenResponse),
+// });
  return (
     <React.Fragment>
+      <div className="newroot">
         <nav className='d-flex justify-content-between  container-fluid align-items-center place-content-center' style={{placeContent:'center'}}>
         
         
@@ -340,21 +309,24 @@ const handleSubmitOne = (event:any) => {
 </div>
   <p className="headingthird fw-light">By clicking Agree & join or continue, you agree to the Uniisphere User Agreement, Privacy Policy and Cookie Policy</p>
   <div className="w-100 d-flex justify-content-center">
-  <button className="bg-white border headingthird text-dark" type="submit"><FcGoogle /> Google</button>
+  <button className='p-0'>    <GoogleLogin    onSuccess={credentialResponse => {const data= jwtDecode(credentialResponse?.credential || ""); console.log(data); }}onError={() => {console.log('Login Failed');}}useOneTap text="continue_with"></GoogleLogin></button>
+  {/* <button className="bg-white border headingthird text-dark" type="button" onClick={() => login()}><FcGoogle /> Google</button> */}
   </div>
 
   <div className="mt-4 headingthird"><p>Already on Uniisphere  <Link to="/login"> <span className="text-primary">Sign in</span></Link></p></div>
-               </Card> : 
+               </Card> :
                <Card className='border-0 rounded-5 mt-3 text-start' style={{background: 'linear-gradient(180deg, rgba(68, 169, 177, 0.1) 0%, rgba(225, 200, 107, 0.100000000000000000) 100%)'
 }}> <div><h3>Confirm your email</h3></div>
     <div><p className="fw-light">We have send a 6 digit verification code to 
     &nbsp;&nbsp;{maskEmail()}</p></div>
     <div className="d-flex row justify-content-around mt-4 mb-2">
-      <input type="text" className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/>
+      {/* <input type="text" className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}} /><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/><input type="text" className="  rounded-3 border-2 border-dark ms-1 me-1 opt p-0 text-center" style={{width:'35px',height:'35px'}}/> */}
+      {otp.map((digit, index) => (<input key={index} type="text" value={digit} onKeyDown={(e)=>handleKeyDown(index,e)}  onChange={(e) => otpchange(index,e.target.value)} ref={(el)=>inputRefs.current[index] == el} onPaste={handlePaste} className="opt p-0 text-center  rounded-3 border-2 border-dark ms-1 me-1" style={{width:'35px',height:'35px'}} />))}
     </div>
      <div className="row text-primary mb-4 headingthird">
-      <div className="col text-start">Change email</div>
-      <div className="col text-end">Resend Code</div>
+      {/* <div className="col text-start">Change email</div> */}
+
+      <div className="col text-end" onClick={Resendotp}>Resend Code</div>
     </div>
     <div className='row'>
       <h6>Your Privacy is important</h6>
@@ -363,11 +335,13 @@ const handleSubmitOne = (event:any) => {
       member updates, recruiter message, job suggestions, invitations, reminder and promotional messages from us and our partners. You can change your preference anytime.</p></div>
     </div> 
  </Card>}
+ {/* } */}
                 </CardBody></Card>
         </Container>
         <div className="firstemptycontainer container"></div>
         <div className="secondemptycontainer container"></div>
         <ToastContainer />
+      </div>
     </React.Fragment>
  )
 }

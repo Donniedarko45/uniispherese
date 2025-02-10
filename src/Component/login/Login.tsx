@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import unilogo from '../../assets/uniisphearlogo.png'
 import { Container,Card,CardBody,Form ,Button} from "react-bootstrap"
 import { HiBars3 } from "react-icons/hi2";
-import { FcGoogle } from "react-icons/fc";
+import { GoogleLogin } from '@react-oauth/google';
 import {  Bounce, ToastContainer , toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { authAxios } from '../../access/access';
 function Login(){
     const [validated, setValidated] = useState(false);
     const [fromdata,setfromdata] =useState({"email":"","password":""})
+    const googlelog = useRef<HTMLButtonElement | null>(null);
+    const navigate = useNavigate();
     const registerUser =  async (userData: any)  => {
         const response = await authAxios.post("/auth/login", userData);
         return response.data;
@@ -18,8 +20,8 @@ function Login(){
         mutationFn: registerUser,
         onSuccess: (data:any) => {
           console.log("login successfully:", data);
-          toast.success('login successful!', {
-                  position: "top-center",
+          localStorage.setItem("token",data.token)
+          toast.success('login successful!', {position: "top-center",
                   autoClose: 5000,
                   hideProgressBar: false,
                   closeOnClick: false,
@@ -29,6 +31,7 @@ function Login(){
                   theme: "light",
                   transition: Bounce,
                   });
+                  navigate("/Home");
         },
         onError: (error:any) => {
           console.error("Registration failed:", error);
@@ -60,9 +63,15 @@ function Login(){
           setValidated(true)
           mutation.mutate(userData);
         }
-      
+
+useEffect(() => {
+  if (googlelog.current) {
+    googlelog.current.click();
+  }
+}, [googlelog]);   
 return (
     <React.Fragment>
+     <div className="newroot">
         <nav className='d-flex justify-content-between  container-fluid align-items-center place-content-center' style={{placeContent:'center'}}>
         
         
@@ -85,7 +94,7 @@ return (
             <Form.Group controlId="formBasicEmail ">
             <Form.Label className='headingthird mb-1 ps-1'>Email or Phone Number</Form.Label>
             <Form.Control type='email' value={fromdata.email} onChange={(e)=>setfromdata({...fromdata,email: e.target.value})} required></Form.Control>
-            <Form.Control.Feedback className='text-danger'><small>Please enter your correct email / phone number</small></Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid" className='text-danger'><small>Please enter your correct email / phone number</small></Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
             <Form.Label className='headingthird mb-1 mt-4 ps-1' >Password</Form.Label>
@@ -108,7 +117,8 @@ return (
   <span className="right-line"></span>
 </div>
              <div>
-                <button className="bg-white border headingthird text-dark" type="submit"><FcGoogle /> Google</button>
+            
+              <button className='p-0'>    <GoogleLogin    onSuccess={credentialResponse => { localStorage.setItem("token",credentialResponse?.credential || "");navigate("/home"); }}onError={() => {console.log('Login Failed');}}useOneTap text="continue_with"></GoogleLogin></button>
              </div>
              <div className='mt-5 headingthird'>
                 <p>Already on Uniisphere?<Link to='/Register'>Sign Up</Link></p>
@@ -120,6 +130,7 @@ return (
    <div className="firstemptycontainer container"></div>
         <div className="secondemptycontainer container"></div>
         <ToastContainer />
+  </div>
    </React.Fragment>
 )
 }

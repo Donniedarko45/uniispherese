@@ -1,8 +1,19 @@
-#root {
+#root{
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newroot {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+.Homeroot{
+  /* max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  /* text-align: center; */ 
 }
 
 .logo {
@@ -99,7 +110,12 @@ margin-right:8px
   .text {
     text-align: center;
   }
-  
+  .skills .form-check-label{
+  vertical-align: sub;
+  }
+  .home-logo{
+    height: 40px; width:40px;
+  }
 @media (min-width:1200px)  {
   .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
     transform: scale(.4);
@@ -158,6 +174,9 @@ left: 0px;
 
             }
             @media (max-width:390px) {
+              .skilltext{
+                font-size:5px;
+              }
               .opt{
                  height:30px !important;
                  width:30px !important;
@@ -189,6 +208,13 @@ left: 0px;
     width: 39%;
     margin: 10px;
              }
+.main-text{overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-right: 5px;
+  }
              .hori::after{
               content: "";
     border-bottom: 4px solid #ffffff;
