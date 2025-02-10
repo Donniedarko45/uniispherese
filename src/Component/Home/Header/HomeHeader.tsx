@@ -10,9 +10,10 @@ import Bellicon from '../../../assets/Bellicon.svg'
 import chaticons from '../../../assets/chatsicon.svg'
 import proflie from '../../../assets/profile.png'
 import '../Home.css'
+import {useNavigate} from 'react-router-dom';
 export function HomeHeader(){
     const [query, setQuery] = useState('');
-
+    const navigate = useNavigate();
   const handleSearch = (e:any) => {
     e.preventDefault();
     console.log('Search query:', query);
@@ -34,7 +35,7 @@ export function HomeHeader(){
                     <Col>
                     <Row>
                 <Col className="col-2 p-0">
-                    <img alt='user-img' src={proflie} className="home-logo border rounded-5"></img>
+                    <img alt='user-img' src={proflie} className="home-logo border rounded-5" onClick={()=>{localStorage.removeItem('token'),navigate('/')}}></img>
                 </Col>
                 <Col className="col-8 ">
                 <Form className="d-flex border rounded-5 border-dark" onSubmit={handleSearch}>
