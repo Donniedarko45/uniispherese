@@ -20,7 +20,7 @@
     }
     .secondcol{
 
-       height:  calc(100% - 64px)
+       height:  calc(100vh - 123px)
     }
     .footerheader{
         display: none;
