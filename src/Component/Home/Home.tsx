@@ -81,7 +81,6 @@ return (
              </div>
              </Col>
              <Col className="col-xl-6 secondcol  overflow-auto">
-             {/* <div className="h-100">              */}
              {feedhome.map((data,i )=>{
                 return (
                     <div className=" w-100  border border-dark rounded-3 text-start p-2 mt-2 m-auto" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
@@ -107,7 +106,7 @@ return (
                      
                 </div>
                 <div  className="col-auto">
-                    <Button variant="outline-light" className="border-dark border text-uppercase text-dark rounded-pill"><span className="text-primary">+</span> <span className="text-primary">C</span><span className="text-danger">o</span><span  className="text-warning">n</span><span className="text-secondary">n</span><span className="text-danger">e</span><span className="text-secondary">c</span><span className="text-danger">t</span></Button>
+                    <Button variant="outline-light" className="border-dark border text-uppercase text-dark rounded-pill"><small><span className="text-primary">+</span> <span className="text-primary">C</span><span className="text-danger">o</span><span  className="text-warning">n</span><span className="text-secondary">n</span><span className="text-danger">e</span><span className="text-secondary">c</span><span className="text-danger">t</span></small></Button>
                     </div>
                 </div>
                 <Row className=" w-100 m-auto" >
@@ -115,10 +114,10 @@ return (
                 </Row>
                 <Row className="mt-2">
                     <Col className="d-flex"><BsThreeDotsVertical className="fs-3 h-auto " /> <Button variant="outline-light" className="border-dark border text-uppercase text-dark rounded-pill fw-bold p-2"><small><span className="text-primary">+</span> <span className="text-primary">C</span><span className="text-warning">o</span><span  className="text-danger">L</span><span style={{color:'purple'}}>L</span><span className="text-secondary">A</span><span className="text-success">B</span></small></Button></Col>
-                    <Col className="text-end d-flex justify-content-end">
-                         <span className="btn btn-outline-light border-0 p-0"><Image src={arrowsign}  style={{width:'75px',height:'30px'}}/></span>
-                         <span className="btn btn-outline-light border-0"><Image src={cloud}  style={{width:'30px',height:'30px'}}/></span>
-                         <span className="btn btn-outline-light border-0"><Image src={heart} style={{width:'30px',height:'30px'}}/></span>
+                    <Col className="text-end d-flex justify-content-end p-0">
+                         <span className="btn btn-outline-light border-0 p-0"><Image src={arrowsign}  style={{width:'65px',height:'30px'}}/></span>
+                         <span className="btn btn-outline-light border-0"><Image src={cloud}  style={{width:'25px',height:'30px'}}/></span>
+                         <span className="btn btn-outline-light border-0"><Image src={heart} style={{width:'25px',height:'30px'}}/></span>
                     </Col>
                 </Row>
                 <Row>
