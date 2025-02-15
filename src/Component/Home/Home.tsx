@@ -115,7 +115,7 @@ return (
                 <Row className="mt-2">
                     <Col className="d-flex"><BsThreeDotsVertical className="fs-3 h-auto " /> <Button variant="outline-light" className="border-dark border text-uppercase text-dark rounded-pill fw-bold p-2"><small><span className="text-primary">+</span> <span className="text-primary">C</span><span className="text-warning">o</span><span  className="text-danger">L</span><span style={{color:'purple'}}>L</span><span className="text-secondary">A</span><span className="text-success">B</span></small></Button></Col>
                     <Col className="text-end d-flex justify-content-end p-0">
-                         <span className="btn btn-outline-light border-0 p-0"><Image src={arrowsign}  style={{width:'65px',height:'30px'}}/></span>
+                         <span className="btn btn-outline-light border-0 p-0"><Image src={arrowsign}  style={{width:'55px',height:'30px'}}/></span>
                          <span className="btn btn-outline-light border-0"><Image src={cloud}  style={{width:'25px',height:'30px'}}/></span>
                          <span className="btn btn-outline-light border-0"><Image src={heart} style={{width:'25px',height:'30px'}}/></span>
                     </Col>
