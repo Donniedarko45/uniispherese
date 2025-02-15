@@ -16,7 +16,7 @@ function Home(){
 return (
     <React.Fragment>
         <HomeHeader />
-        <div className="container h-100 p-0 m-0  d-flex justify-content-center" style={{fontFamily:'Inter'}}>
+        <div className="container h-100 p-0 m-auto  d-flex justify-content-center" style={{fontFamily:'Inter'}}>
             <Row className="w-100">
              <Col className="col-xl-3 p-1 firstcol">
              <div className=" m-1 mt-0   w-100 border border-dark rounded-3 text-start p-2" style={{background:'linear-gradient(180deg, rgba(207, 232, 239, 0.2) 0%, rgba(201, 228, 202, 0.5) 100%)'}}>
