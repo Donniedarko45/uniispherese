@@ -84,7 +84,7 @@ return (
              {/* <div className="h-100">              */}
              {feedhome.map((data,i )=>{
                 return (
-                    <div className=" w-100  border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
+                    <div className=" w-100  border border-dark rounded-3 text-start p-2 mt-2 m-auto" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
                     <div className="h-100" key={i}>
                         <div className="d-flex">
               <div className="col-auto col" >
@@ -129,7 +129,7 @@ return (
                 )
               })}
                 
-                {/* </div> */}
+                
              </Col>
              <Col className="col-xl-3 thirdcol">
              <div className=" w-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(229, 190, 158, 0.2) 0%, rgba(244, 214, 204, 0.2) 100%)'}}>
