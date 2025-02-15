@@ -36,4 +36,9 @@ export const feedhome=[{
     count:'',
     description:'University of Delhi| Works at Google'
     },
+    {
+        head:'Vijay Prasad',
+        count:'',
+        description:'University of Delhi| Works at Google'
+        },
 ]

@@ -80,11 +80,12 @@ return (
               })}
              </div>
              </Col>
-             <Col className="col-xl-6   overflow-auto">
-             <div className="h-00">             <div className=" w-100 h-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
+             <Col className="col-xl-6 secondcol  overflow-auto">
+             <div className="h-100">             
              {feedhome.map((data,i )=>{
                 return (
-                    <div className="" key={i}>
+                    <div className=" w-100  border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
+                    <div className="h-100" key={i}>
                         <div className="d-flex">
               <div className="col-auto col" >
                    <img src={Addicon} alt="..." className="h-100 w-100 m-auto rounded" />
@@ -124,9 +125,10 @@ return (
                     <p><b>Vijay Prashad</b> Been have evolved to go in the university and will probably prefer the university of... more</p>
                 </Row>
                 </div>
+                </div>  
                 )
               })}
-                </div> 
+                
                 </div>
              </Col>
              <Col className="col-xl-3 thirdcol">
