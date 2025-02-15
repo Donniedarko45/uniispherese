@@ -20,9 +20,9 @@ export function HomeHeader(){
   };
     return (
         <React.Fragment>
-        <div className="Homeroot border border-dark mt-1" style={{boxShadow: '0px 4px 4px 0px #00000040'}}>
+        <div className="border-bottom border-dark mt-0 " style={{boxShadow: '0px 4px 4px 0px #00000040'}}>
        <div className="container-fluid  p-0 m-0 ">
-            <header className="bg-white d-flex w-100 p-2 ">
+            <header className="bg-white d-flex w-100 p-2 rounded">
                 <Row className="w-100 ">
                     <Col className="d-flex footerheader">
                     <Col><button className="p-0 bg-white"><img src={Homeicon} className="home-logo"/></button></Col>
@@ -34,10 +34,10 @@ export function HomeHeader(){
                     </Col>
                     <Col>
                     <Row>
-                <Col className="col-2 p-0">
+                <Col className="col-auto p-0 ps-3 col">
                     <img alt='user-img' src={proflie} className="home-logo border rounded-5" onClick={()=>{localStorage.removeItem('token'),navigate('/')}}></img>
                 </Col>
-                <Col className="col-8 ">
+                <Col className="col ">
                 <Form className="d-flex border rounded-5 border-dark" onSubmit={handleSearch}>
       <FormControl
         type="text"
@@ -49,7 +49,7 @@ export function HomeHeader(){
       <Button type="submit" variant="outline-light" className="border-0 rounded-5 rounded-start text-dark"><BsSearch /></Button>
     </Form>
                 </Col>
-                <Col className="col-2 p-0 d-flex justify-content-end">
+                <Col className="col-auto p-0 d-flex justify-content-end">
                 <img src={unilogo} alt='unilogo' className='unihomelogo home-logo'></img>
                 
                 <img src={chaticons} alt='chaticon' className="home-logo chaticon" />

@@ -1,10 +1,13 @@
-@media (min-width:1271px) {
+@media (min-width:1201px) {
     .chaticon, .newfooter{
         display: none;
     } 
 }
-
-@media (max-width:1270px) {
+.feedphoto{
+    height:370px
+}
+/* .secondcol: calc(100% - 64px) */
+@media (max-width:1200px) {
     .firstcol{
         display: none !important
     }
@@ -17,8 +20,7 @@
     }
     .secondcol{
 
-        margin-bottom: 55px;
-        height: calc(100vh - 120px);
+       height:  calc(100% - 64px)
     }
     .footerheader{
         display: none;
@@ -27,19 +29,18 @@
         display: block;
     }
     .newfooter{
-        bottom: 4px;
+        bottom: 0px;
     color: black;
     width: 100%;
     padding: 0;
     clear: both;
-    position: absolute;
+    position: fixed;
      background-color: white;
     }
-    .feedphoto{
-     width:calc(100% - 14px) !important;
-
-
-    }
+    /* .feedphoto{
+        width: 100vh;
+        height: calc(100% - 285px);
+    } */
 }
 
 @media (orientation: landscape) and (max-width:1270px) {

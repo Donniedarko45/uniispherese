@@ -10,7 +10,7 @@ import '../Home.css'
 export function Homefooter(){
     return (
         <React.Fragment>
-             <footer className="newfooter">
+             <footer className="newfooter pt-2 pb-2 border border-dark">
              <Row className="w-100 ">
                     <Col className="d-flex ">
                     <Col><button className="p-0 bg-white"><img src={Homeicon} className="home-logo"/></button></Col>

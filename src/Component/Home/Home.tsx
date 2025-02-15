@@ -16,9 +16,9 @@ function Home(){
 return (
     <React.Fragment>
         <HomeHeader />
-        <div className="container-fluid h-100 m-1" style={{fontFamily:'Inter'}}>
+        <div className="container h-100 p-0 m-0  d-flex justify-content-center" style={{fontFamily:'Inter'}}>
             <Row className="w-100">
-             <Col className="col-3 p-1 firstcol">
+             <Col className="col-xl-3 p-1 firstcol">
              <div className=" m-1 mt-0   w-100 border border-dark rounded-3 text-start p-2" style={{background:'linear-gradient(180deg, rgba(207, 232, 239, 0.2) 0%, rgba(201, 228, 202, 0.5) 100%)'}}>
               <div>
                 <h5>Upcoming Events</h5>
@@ -80,8 +80,8 @@ return (
               })}
              </div>
              </Col>
-             <Col className="col-6 h-100 secondcol">
-             <div className=" w-100 h-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
+             <Col className="col-xl-6   overflow-auto">
+             <div className="h-00">             <div className=" w-100 h-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
              {feedhome.map((data,i )=>{
                 return (
                     <div className="" key={i}>
@@ -110,7 +110,7 @@ return (
                     </div>
                 </div>
                 <Row className=" w-100 m-auto" >
-                    <img  src={hhh} className="feedphoto m-auto p-0" style={{width:'calc(100% - 183px)',height:'358px'}}></img>
+                    <img  src={hhh} className="feedphoto m-auto p-0" ></img>
                 </Row>
                 <Row className="mt-2">
                     <Col className="d-flex"><BsThreeDotsVertical className="fs-3 h-auto " /> <Button variant="outline-light" className="border-dark border text-uppercase text-dark rounded-pill fw-bold p-2"><small><span className="text-primary">+</span> <span className="text-primary">C</span><span className="text-warning">o</span><span  className="text-danger">L</span><span style={{color:'purple'}}>L</span><span className="text-secondary">A</span><span className="text-success">B</span></small></Button></Col>
@@ -127,8 +127,9 @@ return (
                 )
               })}
                 </div> 
+                </div>
              </Col>
-             <Col className="col-3 thirdcol">
+             <Col className="col-xl-3 thirdcol">
              <div className=" w-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(229, 190, 158, 0.2) 0%, rgba(244, 214, 204, 0.2) 100%)'}}>
                  <Row className="mt-3">
                      <Col className="col-5 d-flex">
