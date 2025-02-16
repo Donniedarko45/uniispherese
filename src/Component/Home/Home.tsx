@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { HomeHeader } from "./Header/HomeHeader"
 import { Button, Col,  Image, Row } from "react-bootstrap"
 import Addicon from '../../assets/Photoroom.svg'
-import { feedhome, leftsidefirst, leftsidesecond ,rightsidesecond, tabss} from "./Homedata"
+import { feedhome, leftsidefirst, leftsidesecond ,rightsidesecond} from "./Homedata"
 import './Home.css'
 import hhh from '../../assets/hh.png'
 import proflicon from '../../assets/profile.png'
@@ -11,7 +11,7 @@ import cloud from '../../assets/cloud.svg'
 import arrowsign from '../../assets/arrowsign.svg'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Homefooter } from "./Footer/Homefooter"
-import { SlArrowUp } from "react-icons/sl";
+// import { SlArrowUp } from "react-icons/sl";
 import { ReadMoreLess } from "../Common/ReadMoreLess"
 // import {fsrightbg} from "../../assets/firstrightbg.svg"
 function Home(){
@@ -38,7 +38,7 @@ return (
               <div>
                 <h5>Upcoming Events</h5>
               </div>
-              {leftsidefirst.map((data,i )=>{
+              {leftsidefirst.map((data,i)=>{
                 return (
                     <div className="d-flex" key={i}>
               <div className="col-auto  col-md-3 col-sm-3 col-4 h-100 m-auto col">
@@ -70,7 +70,7 @@ return (
              <div>
                 <h5>Top News </h5>
               </div>
-              {leftsidesecond.map((data,i )=>{
+              {leftsidesecond.map((data)=>{
                 return (
                     <div className="d-flex" key={data?.id}>
               <div className="col-auto  col-md-3 col-sm-3 col-4 h-100 mt-2 col">
@@ -180,7 +180,7 @@ return (
                 <h6 className="mb-0">Suggested</h6>
 
                 </Row>
-                {rightsidesecond.map((data,i )=>{
+                {rightsidesecond.map((data )=>{
                 return (
                     <div className="d-flex" key={data?.id}>
               <div className="col-auto  col-md-3 col-sm-3 col-4 h-100 mt-2 col">
