@@ -1,6 +1,6 @@
 import React from "react"
 import { HomeHeader } from "./Header/HomeHeader"
-import { Button, Col, Image, Row } from "react-bootstrap"
+import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import Addicon from '../../assets/Photoroom.svg'
 import { feedhome, leftsidefirst, leftsidesecond } from "./Homedata"
 import './Home.css'
@@ -11,14 +11,19 @@ import cloud from '../../assets/cloud.svg'
 import arrowsign from '../../assets/arrowsign.svg'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Homefooter } from "./Footer/Homefooter"
+// import {fsrightbg} from "../../assets/firstrightbg.svg"
 function Home(){
 
 return (
     <React.Fragment>
         <HomeHeader />
+        <div className="homefirst"></div>
+        <div className="homesecond"></div>
+        <div className="homeThird"></div>
+        <div className="homefour"></div>
         <div className="container h-100 p-0 m-auto  d-flex justify-content-center" style={{fontFamily:'Inter'}}>
             <Row className="w-100">
-             <Col className="col-xl-3 p-1 firstcol">
+             <Col className="col-xl-3 mt-2 firstcol">
              <div className=" m-1 mt-0   w-100 border border-dark rounded-3 text-start p-2" style={{background:'linear-gradient(180deg, rgba(207, 232, 239, 0.2) 0%, rgba(201, 228, 202, 0.5) 100%)'}}>
               <div>
                 <h5>Upcoming Events</h5>
@@ -80,7 +85,7 @@ return (
               })}
              </div>
              </Col>
-             <Col className="col-xl-6 secondcol  overflow-auto">
+             <Col className="col-xl-6  secondcol  overflow-auto">
              {feedhome.map((data,i )=>{
                 return (
                     <div className=" w-100  border border-dark rounded-3 text-start p-2 mt-2 m-auto" style={{background:'linear-gradient(180deg, rgba(255, 109, 109, 0.05) 0%, rgba(85, 75, 231, 0.05) 100%)'}}>
@@ -130,7 +135,7 @@ return (
                 
                 
              </Col>
-             <Col className="col-xl-3 thirdcol">
+             <Col className="col-xl-3 mt-2 thirdcol">
              <div className=" w-100 border border-dark rounded-3 text-start p-2 m-1" style={{background:'linear-gradient(180deg, rgba(229, 190, 158, 0.2) 0%, rgba(244, 214, 204, 0.2) 100%)'}}>
                  <Row className="mt-3">
                      <Col className="col-5 d-flex">

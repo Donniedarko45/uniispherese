@@ -3,6 +3,10 @@
         display: none;
     } 
 }
+.secondcol{
+
+    height:  calc(100vh - 100px)
+ }
 .feedphoto{
     height:340px
 }

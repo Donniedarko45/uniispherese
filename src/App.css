@@ -72,6 +72,12 @@ overflow: hidden
 .firstemptycontainer::after{content: url('/src/assets/backfive.svg');position: absolute;right: 0px;z-index: 1;margin-top: -74px;}
 .secondemptycontainer::before{content: url('/src/assets/ennllpone.svg');position: absolute;left: 0px;z-index: 1;;}
 .secondemptycontainer::after{content: url('/src/assets/ennllp.svg');position: absolute;right: 0px;z-index: 1;margin-top: -194px;}
+.homefirst::after{content: url('/src/assets/firstrightbg.svg');position: absolute;right: 0px;z-index: 1;margin-top:10px;}
+.homefirst::before{content: url('/src/assets/homesecondbg.svg');position: absolute;left: 0px;z-index: 1;margin-top:100px;}
+.homesecond::after{content: url('/src/assets/HomeFourebg.svg');position: absolute;right: 0px;z-index: 1;margin-top:170px;}
+.homeThird::before{content: url('/src/assets/homefivebg.svg');position: absolute;left: 0px;z-index: 1;bottom:100px;}
+.homeThird::after{content: url('/src/assets/Homethirdbg.svg');position: absolute;right: 0px;z-index: 1;bottom:100px;}
+.homefour::before{content: url('/src/assets/homesevenbg.svg');position: absolute;z-index: 1;bottom: -9px;right: 50%;}
 #formBasicCheckbox {
 margin-right:8px
 }
@@ -126,21 +132,29 @@ margin-right:8px
         left: -33px;
         
   }
+  .homefour::before{
+    transform: scale(.5);
+    bottom: -23px;
+  }
   .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
     transform: translateX(35%) scale(.4)
   }
+  
 }
 @media  (max-width:1200px){
-  .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+  .homefour::before{
+   display: none;
+  }
+  .Firstflash::before,.firstemptycontainer::before,.homefirst::before,.homeThird::before,.homesecond::before,.secondemptycontainer::before{
     transform: scale(.4);
         left: -33px;        
   } 
-  .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+  .Firstflash::after,.firstemptycontainer::after,.homefirst::after,.homesThird::after,.homesecond::after,.secondemptycontainer::after{
     transform: translateX(35%) scale(.4)
   }
 }
 @media (max-width:659px){
-.Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+.Firstflash::before,.firstemptycontainer::before,.homefirst::before,.homeThird::before,.homesecond::before,.secondemptycontainer::before{
   transform: scale(.5);
       
 }
@@ -148,7 +162,7 @@ margin-right:8px
   font-size:var(--display-font-size-5);
   white-space: nowrap;
 } 
-.Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+.Firstflash::after,.firstemptycontainer::after,.homefirst::after,.homesThird::after,.homesecond::after,.secondemptycontainer::after{
 transform: translateX(35%) scale(.5);
 }
 }
@@ -166,11 +180,11 @@ transform: translateX(35%) scale(.5);
   }
 }
 @media (max-width:509px){
-  .Firstflash::after,.firstemptycontainer::after,.secondemptycontainer::after{
+  .Firstflash::after,.firstemptycontainer::after,.homefirst::after,.homesThird::after,.homesecond::after,.secondemptycontainer::after{
   transform: translateX(31%) scale(.4);
   right:0px;
   }
-  .Firstflash::before,.firstemptycontainer::before,.secondemptycontainer::before{
+  .Firstflash::before,.firstemptycontainer::before,.homefirst::before,.homeThird::before,.homesecond::before,.secondemptycontainer::before{
 left: 0px;
             transform: translateX(-31%) scale(.4);}}
         

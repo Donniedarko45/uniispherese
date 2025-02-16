@@ -21,8 +21,8 @@ export function HomeHeader(){
     return (
         <React.Fragment>
         <div className="border-bottom border-dark mt-0 " style={{boxShadow: '0px 4px 4px 0px #00000040'}}>
-       <div className="container-fluid  p-0 m-0 ">
-            <header className="bg-white d-flex w-100 p-2 rounded">
+       <div className="container  p-0 m-auto ">
+            <header className="bg-white d-flex w-100 p-2 ps-0 pe-0 rounded">
                 <Row className="w-100 ">
                     <Col className="d-flex footerheader">
                     <Col><button className="p-0 bg-white"><img src={Homeicon} className="home-logo"/></button></Col>
