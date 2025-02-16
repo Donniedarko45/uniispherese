@@ -18,6 +18,7 @@ function Home(){
     const [expandedStates, setExpandedStates] = useState<Record<number, boolean>>(
         {}
       );
+      
       const toggleReadMore = (id: number) => {
         setExpandedStates((prevStates:any) => ({
           ...prevStates,
