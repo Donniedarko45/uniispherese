@@ -10,7 +10,7 @@
   text-align: center;
 }
 html{
-overflow: hidden
+/* overflow: hidden */
 }
 .backgroundiconcolor{background:var(--background-light-gray)}
 .Homeroot{
