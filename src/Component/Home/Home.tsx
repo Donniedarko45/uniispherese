@@ -1,6 +1,6 @@
 import React from "react"
 import { HomeHeader } from "./Header/HomeHeader"
-import { Button, Col, Container, Image, Row } from "react-bootstrap"
+import { Button, Col,  Image, Row } from "react-bootstrap"
 import Addicon from '../../assets/Photoroom.svg'
 import { feedhome, leftsidefirst, leftsidesecond } from "./Homedata"
 import './Home.css'
