@@ -5,7 +5,7 @@
 }
 .secondcol{
 
-    height:  calc(100vh - 100px)
+    height:  calc(100vh - 40px)
  }
 .feedphoto{
     height:340px
@@ -47,7 +47,7 @@
     } */
 }
 
-@media (orientation: landscape) and (max-width:1270px) {
+@media (orientation: landscape) and (min-width:1270px) {
     .newfooter{
         bottom: 0px;
     color: black;
@@ -56,7 +56,12 @@
     clear: both;
     position: fixed;
      background-color: white;
+     
     }
+    .secondcol{
+
+        height:  calc(100vh - 100px)
+     }
     .secondcol{
         margin-bottom: 67px;
     }

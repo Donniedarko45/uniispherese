@@ -11,7 +11,7 @@ export function Homefooter(){
     return (
         <React.Fragment>
              <footer className="newfooter pt-2 pb-2 border border-dark">
-             <Row className="w-100 ">
+             <Row className="w-100 container m-auto">
                     <Col className="d-flex ">
                     <Col><button className="p-0 bg-white"><img src={Homeicon} className="home-logo"/></button></Col>
                     <Col><button className="p-0 bg-white"><img src={startpicon} className="home-logo"/></button></Col>

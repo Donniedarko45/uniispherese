@@ -38,15 +38,15 @@ export function HomeHeader(){
                     <img alt='user-img' src={proflie} className="home-logo border rounded-5" onClick={()=>{localStorage.removeItem('token'),navigate('/')}}></img>
                 </Col>
                 <Col className="col ">
-                <Form className="d-flex border rounded-5 border-dark" onSubmit={handleSearch}>
+                <Form className="d-flex border rounded-5 border-dark backgroundiconcolor" onSubmit={handleSearch}>
       <FormControl
         type="text"
         placeholder="Search"
-        className="mr-sm-2 border-0  rounded-5 rounded-end"
+        className="mr-sm-2 border-0 bg-transparent rounded-5 rounded-end"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <Button type="submit" variant="outline-light" className="border-0 rounded-5 rounded-start text-dark"><BsSearch /></Button>
+      <Button type="submit" variant="outline-light" className="bg-transparent border-0 rounded-5 rounded-start text-dark"><BsSearch /></Button>
     </Form>
                 </Col>
                 <Col className="col-auto p-0 d-flex justify-content-end">
