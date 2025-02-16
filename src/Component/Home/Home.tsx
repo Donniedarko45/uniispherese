@@ -117,7 +117,7 @@ return (
                             </p>
                         </Row>
                         <Row>
-                            <p className="font-w300 text-dark mb-0"><small className="main-text">{data?.description}</small></p>
+                            <p className="font-w300 text-dark mb-0"><small className="">{data?.description}</small></p>
                         </Row>
                     </div>
                      </div>
